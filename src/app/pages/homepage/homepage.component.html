@@ -1,0 +1,29 @@
+<div class="homepage container-fluid p-0">
+  <div class="row">
+    <div class="col-sm-2 col-2 p-0">
+      <div class="alphabet-panel">
+        <ul>
+          <li (click)="showFavorites = !showFavorites">
+            <i [class.fas]="true" [class.fa-heart]="showFavorites" [class.fa-play]="!showFavorites"></i>
+          </li>
+          <li *ngFor="let letter of alphabet" (click)="filterByLetter(letter)">{{ letter }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-sm-10 col-10 p-1">
+      <div class="search-container">
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Cerca per titolo" />
+        <i class="fas fa-search"></i>
+        <i class="fas fa-times" (click)="clearSearch()"></i>
+      </div>
+
+      <ul>
+        <li *ngFor="let song of displayedSongs">
+          <i class="fas fa-heart" (click)="toggleFavorite(song)" [class.favorited]="song.isFavorite"></i>
+          <a [href]="song.link" target="_blank">{{ song.title }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

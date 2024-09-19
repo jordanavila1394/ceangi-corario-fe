@@ -1,0 +1,27 @@
+<header>
+  <nav class="navbar">
+    <div class="logo-wrapper">
+      <a routerLink="/">
+        <img src="assets/logos/logo-ceangi.png" alt="CEANGI Italia Logo" />
+      </a>
+    </div>
+
+    <div class="menu-wrapper">
+      <div class="list-menu">
+        <div class="item-menu"><a routerLink="/">Home</a></div>
+        <div class="item-menu"><a routerLink="/about-us">Chi siamo</a></div>
+        <div class="item-menu"><a routerLink="/portfolio">Portfolio</a></div>
+        <div class="item-menu"><a routerLink="/contacts">Contatti</a></div>
+      </div>
+    </div>
+
+
+    <div class="profile-wrapper" *ngIf="isAuthenticated">
+      <a (click)="toggleMenuUser()">
+        <i class="fas fa-user"></i> <span>{{ user.name | titlecase }}</span>
+      </a>
+    </div>
+
+  </nav>
+
+</header>
