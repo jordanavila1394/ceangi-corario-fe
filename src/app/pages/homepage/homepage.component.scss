@@ -1,51 +1,63 @@
-@import "../../../assets/scss/colors.scss";
+@import "../../../assets/scss/colors.scss"; // Importa il file di colori
 
 .homepage {
-  .alphabet-panel {
-    position: fixed; // Fissa il pannello in posizione
-    left: 0;
-    height: 80vh;
-    padding: 1rem;
-    overflow-y: auto; // Permette lo scroll verticale del pannello
+  .panel-container {
+    position: relative;
+    width: 100%; // Assicura che il pannello prenda il 100% della larghezza disponibile
+    height: 100%;
+    display: flex;
+    
+    .alphabet-panel {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      height: 100%; // Altezza fissa del pannello in viewport height
+      max-height: 80vh; // Limita l'altezza massima per scrollare
+      padding: 1rem;
+      overflow-y: auto; // Abilita lo scroll solo in verticale
+      overflow-x: hidden; // Nasconde eventuali scroll orizzontali
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
 
-      li {
-        display: flex;
-        justify-content: center;
-        cursor: pointer;
-        padding: 15px;
-        width: 25px;
-        height: 25px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        background-color: #007bff; // Cerchio blu
-        color: white; // Testo bianco
-        margin-bottom: 0.5rem;
-        &:hover {
-          background-color: #0056b3; // Cambia il colore durante l'hover
-        }
-        i {
-          margin: 0;
-          color: #fff;
+        li {
+          cursor: pointer;
+          padding: 15px;
+          width: 25px;
+          height: 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%; // Cerchio per ogni lettera
+          background-color: #007bff;
+          color: white;
+          margin-bottom: 0.5rem;
+          transition: background-color 0.3s ease; // Animazione per cambiamento di colore
+
+          &:hover {
+            background-color: #0056b3; // Cambia colore durante l'hover
+          }
+
+          i {
+            margin: 0;
+            color: #fff; // Icona bianca dentro i cerchi
+          }
         }
       }
     }
   }
 
+  // Container per la barra di ricerca
   .search-container {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
     margin-right: 0.5rem;
     border-radius: 0.25rem;
+    background-color: #0056b3; // Colore di sfondo blu
 
-    background-color: #0056b3;
     input {
       flex: 1;
       width: 100%;
@@ -56,13 +68,14 @@
 
     i {
       cursor: pointer;
-      color: #ffffff; // Colore blu per l'icona di default
+      color: #ffffff; // Icone bianche
       padding: 0.5rem;
       margin: 0.3rem;
       border-radius: 50%; // Cerchio intorno all'icona
     }
   }
 
+  // Stile del pulsante di ricerca e cancellazione
   button {
     margin-bottom: 1rem;
     padding: 0.5rem 1rem;
@@ -71,37 +84,51 @@
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
+
     &:hover {
-      background-color: #0056b3;
+      background-color: #0056b3; // Cambia colore in hover
     }
   }
 
-  ul {
-    list-style: none;
+  // Contenitore per la lista delle canzoni
+  .song-list-container {
+    max-height: 80vh; // Altezza massima della lista
+    overflow-y: auto; // Scroll in verticale
     padding: 0;
+    list-style-type: none; // Rimuove i punti elenco
+
+    ul {
+      padding: 0;
+      margin: 0;
+    }
 
     li {
       display: flex;
       align-items: center;
-      padding: 0.5rem;
-      border-bottom: 1px solid #dee2e6;
+      padding: 10px;
+      border-bottom: 1px solid #e9ecef;
 
-      i {
-        margin-right: 0.5rem;
-        cursor: pointer;
-        color: #c5b8b9; // Colore per l'icona del cuore
+      a {
+        margin-left: 10px;
+        text-decoration: none;
+        color: #343a40; // Testo scuro
 
-        &.favorited {
-          color: #ff5c5c; // Colore per l'icona dei preferiti
+        &:hover {
+          text-decoration: underline; // Sottolinea in hover
         }
       }
 
-      a {
-        text-decoration: none;
-        color: #007bff;
-        &:hover {
-          text-decoration: underline;
-        }
+      i.fas.fa-heart {
+        color: #a99d9c; // Colore grigio per i preferiti non selezionati
+        cursor: pointer;
+      }
+
+      i.favorited {
+        color: #ff6b6b; // Colore rosso per i preferiti
+      }
+
+      &:hover {
+        background-color: #f1f3f5; // Sfondo chiaro quando si passa sopra una canzone
       }
     }
   }
