@@ -1,9 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 
 interface Song {
   title: string;
   link: string;
-  isFavorite?: boolean;
+  isFavorite?: boolean; // Nuova proprietà per i preferiti
 }
 
 @Component({
@@ -50,48 +50,52 @@ export class HomepageComponent {
   searchTerm: string = '';
   selectedLetter: string = '';
   showFavorites: boolean = false;
-  alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-  displayedSongs: Song[] = [];
-  pageSize: number = 10; // Number of songs to load per scroll
-  currentPage: number = 1;
+  alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   ngOnInit() {
     this.loadFavorites();
-    this.loadInitialSongs();
   }
-
-  get filteredSongs(): Song[] {
+  
+  get filteredSongs() {
     let filtered = this.songs;
 
+    // Filtro per lettera
     if (this.selectedLetter) {
-      filtered = filtered.filter(song => song.title.toUpperCase().startsWith(this.selectedLetter));
+      filtered = filtered.filter(song =>
+        song.title.toUpperCase().startsWith(this.selectedLetter)
+      );
     }
 
+    // Filtro per ricerca
     if (this.searchTerm) {
-      filtered = filtered.filter(song => song.title.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      filtered = filtered.filter(song =>
+        song.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
     }
 
     return filtered;
   }
 
-  loadInitialSongs() {
-    this.displayedSongs = this.filteredSongs;
+  get displayedSongs() {
+    return this.showFavorites ? this.songs.filter(song => song.isFavorite) : this.filteredSongs;
   }
 
-
+  // Aggiunge o rimuove un brano dai preferiti
   toggleFavorite(song: Song) {
     song.isFavorite = !song.isFavorite;
     this.saveFavorites();
   }
 
+  // Salva i preferiti nel local storage
   saveFavorites() {
     const favorites = this.songs
       .filter(song => song.isFavorite)
-      .map(song => song.title);
+      .map(song => song.title);  // Salva solo i titoli dei brani preferiti
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }
 
+  // Carica i preferiti dal local storage
   loadFavorites() {
     const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     this.songs.forEach(song => {
