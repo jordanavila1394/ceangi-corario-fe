@@ -8,10 +8,9 @@ import { HeaderLayoutComponent } from './layout/components/header-layout/header-
 import { FooterLayoutComponent } from './layout/components/footer-layout/footer-layout.component';
 import { SidebarComponent } from './layout/components/sidebar/sidebar.component';
 import * as ComponentsList from '../components/index';
-import * as ModalsList from '../modals/index';
 
 @NgModule({
-  declarations: [...ComponentsList.genericComponentsList, ...ModalsList.genericModalsList,
+  declarations: [...ComponentsList.genericComponentsList,
     LayoutComponent, SidebarComponent, HeaderLayoutComponent, FooterLayoutComponent,],
   imports: [
     CommonModule,
@@ -19,6 +18,6 @@ import * as ModalsList from '../modals/index';
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [...ComponentsList.genericComponentsList, ...ModalsList.genericModalsList, LayoutComponent],
+  exports: [...ComponentsList.genericComponentsList, LayoutComponent],
 })
 export class SharedModule { }
